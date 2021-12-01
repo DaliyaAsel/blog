@@ -1,26 +1,20 @@
 <!-- home page -->
 <template>
   <div class="wrapper-content wrapper-content--fixed">
-    <promo />
-    <intro title="My lasts posts:" />
+    <intro title="My posts:" />
     <!-- posts -->
     <postsList :posts="posts" />
-    <contacts />
   </div>
 </template>
 
 <script>
-import promo from "@/components/Promo.vue"
 import intro from "@/components/UI/Intro.vue"
 import postsList from "@/components/blog/PostsList.vue"
-import contacts from '../components/Contacts.vue'
 
 export default {
   components: {
-    promo,
     intro,
     postsList,
-    contacts
   },
   data() {
     return {
@@ -45,7 +39,7 @@ export default {
         },
           {
           id: 4,
-          title: "4 post",
+          title: "2 post",
           descr: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
           img: "https://iheartdogs.com/wp-content/uploads/2017/09/Brite-Bite-0021-2.jpg",
         },
