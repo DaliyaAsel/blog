@@ -2,13 +2,14 @@
   <section class="contact">
     <div class="container">
       <h2 class="title">Contact me!</h2>
+
+      <!-- сообщение после отправки формы. Если message не null, то передаем  этот message -->
+      <Message v-if="message" :message="message" />
       <form @submit.prevent="onSubmit" class="contact-form">
-        <label>Name: </label>
-        <input type="text" v-model="user.name" />
-        <label>Email: </label>
-        <input type="text" v-model="user.email" />
-        <label>Text: </label>
-        <textarea v-model="user.text"></textarea>
+        <!-- то что м/у тегами это единичный слот, который мы передаем в контролы -->
+        <AppInput v-model="user.name"> Name: </AppInput>
+        <AppInput type="email" v-model="user.email">Email:</AppInput>
+        <AppTextArea v-model="user.text"> Text: </AppTextArea>
 
         <div class="controls">
           <AppButton class="btnWhite">Submit! </AppButton>
@@ -19,13 +20,22 @@
 </template>
 
 <script>
-import AppButton from "@/components/UI/Controls/Button.vue";
+// это все убрали, так как перенесли все в папку plugins  -> app-components.js
+// import AppButton from "@/components/UI/Controls/Button.vue";
+// import AppInput from "@/components/UI/Controls/Input.vue";
+// import AppTextArea from "@/components/UI/Controls/TextArea.vue";
+// import Message from "@/components/UI/Message.vue";
+
 export default {
-  components: {
-    AppButton,
-  },
+  // components: {
+  //   AppButton,
+  //   AppInput,
+  //   AppTextArea,
+  //   Message,
+  // },
   data() {
     return {
+      message: null,
       user: {
         name: "",
         email: "",
@@ -35,8 +45,16 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log(this.user);
-      document.querySelector("form").reset();
+      this.message = "Your contacts submited !"
+      // Reset
+      this.user.name = ""
+      this.user.email = ""
+      this.user.text = ""
+
+      // через 2сек сообщешие удалится
+      setTimeout(() => {
+        this.message = ""
+      }, 2000)
     },
   },
 };

@@ -1,7 +1,8 @@
 <template>
   <section class="intro">
     <div class="container">
-      <h1>{{ title }}</h1>
+      <h2>{{ title }}</h2>
+      <slot />
     </div>
   </section>
 </template>
@@ -20,7 +21,7 @@ export default {
 <style lang="scss">
 .intro {
   width: 100%;
-  margin: 30px 0;
+  margin: 40px 0;
   text-align: center;
   color: #fff;
   background-color: #4b40e3;

@@ -1,21 +1,21 @@
 <!-- home page -->
 <template>
   <div class="wrapper-content wrapper-content--fixed">
-    <intro title="My posts:" />
+    <Intro title="My posts:" />
     <!-- posts -->
-    <postsList :posts="posts" />
+    <PostsList :posts="posts" />
   </div>
 </template>
 
 <script>
-import intro from "@/components/UI/Intro.vue"
-import postsList from "@/components/blog/PostsList.vue"
+// import intro from "@/components/UI/Intro.vue"
+// import postsList from "@/components/blog/PostsList.vue"
 
 export default {
-  components: {
-    intro,
-    postsList,
-  },
+  // components: {
+  //   intro,
+  //   postsList,
+  // },
   data() {
     return {
       posts: [

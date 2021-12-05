@@ -8,7 +8,7 @@
           molestiae doloribus mollitia deserunt tempore alias totam eligendi,
           necessitatibus dolores iusto?
         </p>
-        <intro title="Title from about"/>
+        <Intro title="Title from about"/>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis
           molestiae doloribus mollitia deserunt tempore alias totam eligendi,
@@ -25,12 +25,6 @@
   </div>
 </template>
 
-<script>
-import intro from "@/components/UI/Intro.vue";
-export default {
-  components: { intro },
-};
-</script>
 
 <style lang="scss">
 .about {

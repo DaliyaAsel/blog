@@ -2,11 +2,14 @@
   <section class="new-comment">
     <div class="container">
       <h2 class="title">New Comment!</h2>
+
+      <!-- сообщение после отправки формы. Если message не null, то передаем  этот message -->
+      <Message v-if="message" :message="message" />
+
       <form @submit.prevent="onSubmit" class="contact-form">
-        <label>Name: </label>
-        <input type="text" v-model="comment.name" />
-        <label>Text: </label>
-        <textarea v-model="comment.text"></textarea>
+        <AppInput v-model="comment.name"> Name: </AppInput>
+        <AppTextArea v-model="comment.text"> Text: </AppTextArea>
+        <!-- buttons -->
         <div class="controls">
           <AppButton> Submit! </AppButton>
         </div>
@@ -16,14 +19,22 @@
 </template>
 
 <script>
-import AppButton from "@/components/UI/Controls/Button.vue";
+// это все убрали, так как перенесли все в папку plugins  -> app-components.js
+// import AppButton from "@/components/UI/Controls/Button.vue";
+// import AppInput from "@/components/UI/Controls/Input.vue";
+// import AppTextArea from "@/components/UI/Controls/TextArea.vue";
+// import Message from "@/components/UI/Message.vue";
 
 export default {
-  components: {
-    AppButton,
-  },
+  // components: {
+  //   AppButton,
+  //   AppInput,
+  //   AppTextArea,
+  //   Message,
+  // },
   data() {
     return {
+      message: null,
       comment: {
         name: "",
         text: "",
@@ -32,7 +43,14 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log(this.comment);
+      this.message = "Your contacts submited !";
+      this.comment.name = "";
+      this.comment.text = "";
+
+      // через 2сек сообщешие удалится
+      setTimeout(() => {
+        this.message = "";
+      }, 2000);
     },
   },
 };

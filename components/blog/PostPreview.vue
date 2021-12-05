@@ -1,9 +1,9 @@
 <template>
-  <nuxt-link class="post-preview" :to="/blogpage/+post.id" >
-    <img :src="post.img" :alt="post.title" />
+  <nuxt-link :to="getLink" class="post-preview">
+    <img :src="post.img" :alt="post.title">
     <div class="post-content">
       <h3 class="title">{{ post.title }}</h3>
-      <p>{{ post.descr }}</p>
+      <p> {{ post.descr }} </p>
     </div>
   </nuxt-link>
 </template>
@@ -13,10 +13,19 @@ export default {
   props: {
     post: {
       type: Object,
-      required: true,
+      required: true
     },
+    admin: {
+      type: Boolean,
+      default: false
+    }
   },
-};
+  computed: {
+    getLink () {
+      return this.admin ? `/admin/${this.post.id}` : `/blogpage/${this.post.id}`
+    }
+  }
+}
 </script>
 
 <style lang="scss">
@@ -28,11 +37,10 @@ export default {
   img {
     margin-bottom: 16px;
   }
-
-  .post-content{
-      p{
-          color: #999;
-      }
+  .post-content {
+    p {
+      color: #999999;
+    }
   }
 }
 </style>
