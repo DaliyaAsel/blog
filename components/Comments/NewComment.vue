@@ -19,19 +19,7 @@
 </template>
 
 <script>
-// это все убрали, так как перенесли все в папку plugins  -> app-components.js
-// import AppButton from "@/components/UI/Controls/Button.vue";
-// import AppInput from "@/components/UI/Controls/Input.vue";
-// import AppTextArea from "@/components/UI/Controls/TextArea.vue";
-// import Message from "@/components/UI/Message.vue";
-
 export default {
-  // components: {
-  //   AppButton,
-  //   AppInput,
-  //   AppTextArea,
-  //   Message,
-  // },
   data() {
     return {
       message: null,
@@ -43,14 +31,23 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.message = "Your contacts submited !";
-      this.comment.name = "";
-      this.comment.text = "";
+      this.$store
+        .dispatch("addComment", {
+          postId: "",
+          publish: false,
+          ...this.comment,
+        })
+        .then(() => {
+          this.message = "Your contacts submited !";
+          this.comment.name = ""
+          this.comment.text = ""
 
-      // через 2сек сообщешие удалится
-      setTimeout(() => {
-        this.message = "";
-      }, 2000);
+          // через 2сек сообщешие удалится
+          setTimeout(() => {
+            this.message = ""
+          }, 2000)
+        })
+        .catch(err => {console.log(err)})
     },
   },
 };

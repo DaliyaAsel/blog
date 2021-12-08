@@ -2,8 +2,8 @@
   <nuxt-link :to="getLink" class="post-preview">
     <img :src="post.img" :alt="post.title">
     <div class="post-content">
-      <h3 class="title">{{ post.title }}</h3>
-      <p> {{ post.descr }} </p>
+      <h3 class="title"> {{ post.title.length > 15 ? `${post.title.substring(0, 15)}...`: post.title }}</h3>
+      <p> {{ post.descr.length > 20 ? `${post.descr.substring(0, 20)}...`: post.descr }} </p>
     </div>
   </nuxt-link>
 </template>
@@ -30,12 +30,18 @@ export default {
 
 <style lang="scss">
 .post-preview {
-  max-width: 33%;
+  width: 33%;
   padding: 16px;
   margin-bottom: 20px;
   text-align: center;
+  position: relative;
   img {
+    position: relative;
     margin-bottom: 16px;
+    // width: 100%;
+    // height: 100%;
+    object-fit: cover;
+    aspect-ratio: 4/3;
   }
   .post-content {
     p {

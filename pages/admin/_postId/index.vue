@@ -5,25 +5,32 @@
 
 <script>
 import newPostForm from "@/components/Admin/NewPostForm.vue";
+import axios from "axios";
+
 export default {
   components: { newPostForm },
   layout: "admin",
-  data() {
-    return {
-      post: 
-        {
-          id: 1,
-          title: "1 post",
-          descr: "Lorem ipsum dolor sit amet, consectetur adipiscing elit ",
-          img: "https://lawnuk.com/wp-content/uploads/2016/08/sprogs-dogs.jpg",
-          content: 'Its content'
-        },
-    }
+  async asyncData(contex) {
+    // asyncData - это метод nuxt, для работы с асинхронными данными, this в нем не исп-ся
+    
+      // забираем единичный пост с БД
+      return axios.get(`https://blog-nuxt-74c4f-default-rtdb.firebaseio.com/posts/${contex.params.postId}.json`)
+      .then((res) => {
+        return {
+          post: {...res.data, id: contex.params.postId}  //contex.params.postId - это обьект, который ссылается на id картинки
+        }
+      })
+      .catch((err) => {
+        contex.error(err) // будет автоматический переброс на layouts error.vue
+      })
   },
   methods: {
     onSubmit(post) {
-      console.log("Post Editing");
-      console.log(post);
+      this.$store.dispatch('editPost', post)  //обращаемся к store для редактирования поста
+      // если пост успешно отредактировался, то делаем редирект на админку
+        .then(()=>{
+          this.$router.push('/admin')
+        })
     },
   },
 };

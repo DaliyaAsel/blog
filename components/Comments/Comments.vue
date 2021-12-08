@@ -14,7 +14,7 @@
 export default {
   props: {
     comments: {
-      type: Array,
+      type: Object,
       default: null,
     },
   },
