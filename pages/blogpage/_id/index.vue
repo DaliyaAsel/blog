@@ -1,8 +1,9 @@
+<!-- стра с комментарием -->
 <template>
   <div class="wrapper-content wrapper-content--fixed">
     <post :post="post" />
-    <newComment />
     <comments :comments="comments" />
+    <newComment  :postId="$route.params.id" />
   </div>
 </template>
 
@@ -24,33 +25,16 @@ export default {
       axios.get(`https://blog-nuxt-74c4f-default-rtdb.firebaseio.com/posts/${context.params.id}.json`),
       axios.get(`https://blog-nuxt-74c4f-default-rtdb.firebaseio.com/comments.json`)
     ])
+
+    // для фильтрации комментарием под постами, comments.data - это массив с комментариями из промисаб, singleComment.postId - эт id конкретного поста
+    let commentsArray = Object.values(comments.data).filter(singleComment => (singleComment.postId === context.params.id) && singleComment.publish)
+
+
     return {
-      post: post.data, // Это из промиса post
-      comments: comments.data  // Это из промиса comments
+      post: post.data, // Это из промиса переменная post
+      comments: commentsArray  // конкретный массив комментариев к посту
     }
   },
-  // data() {
-  //   return {
-  //     post: {
-  //       id: 1,
-  //       title: "1 post",
-  //       descr: "Lorem ipsum dolor sit amet, consectetur adipiscing elit ",
-  //       content:
-  //         "Good day is today Lorem ipsum dolor sit amet, consectetur adipiscing elit Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-  //       img: "https://lawnuk.com/wp-content/uploads/2016/08/sprogs-dogs.jpg",
-  //     },
-  //     comments:[
-  //       {
-  //         name: 'Alex',
-  //         text: 'Все нравится'
-  //       },
-  //       {
-  //         name: 'Ivan',
-  //         text: 'It is a good day'
-  //       }
-  //     ]
-  //   };
-  // },
 };
 </script>
 

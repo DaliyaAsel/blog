@@ -10,6 +10,7 @@
         <div class="controls">
           <AppButton> Login! </AppButton>
         </div>
+        
       </form>
     </div>
   </section>
@@ -27,12 +28,20 @@ export default {
   },
   methods:{
       onSubmit(){
+        this.$store.dispatch('authUser', this.user)
+        .then((res) => {  //если админ залогинелся, то его перебрысывает на админку
+          this.$router.push('/admin')
+        })
+        .catch(err => {
         //  Reset
         this.user.email = ''
         this.user.password = ''
+
+        console.log(err)
+        })
       }
   }
-};
+}
 </script>
 
 <style lang="scss">
