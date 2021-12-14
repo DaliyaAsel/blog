@@ -25,6 +25,25 @@
   </div>
 </template>
 
+<script>
+export default {
+   head() {
+    //для смены title страниц и  descr. og - это для seo
+    let title = "About my SSR blog", //это сама стр так будет называться сверху
+      descr = " About My SSR Blog! With Nuxt.Js", //это то, что будет видно поисковаикам в описании
+      type = "site"; //для того чтобы поисковая система ранжировала как сайт наше приложение
+    return {
+      title: title,
+      meta: [
+        { hid: "og:title", name: "og:title", content: title },
+        { hid: "description", name: "description", content: descr },
+        { hid: "og:description", name: "og:description", content: descr },
+        { hid: "og:type", name: "og:type", content: type },
+      ],
+    };
+  },
+}
+</script>
 
 <style lang="scss">
 .about {

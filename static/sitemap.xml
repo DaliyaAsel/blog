@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://">
+<url>
+<!-- адрес сайта пишем вместо sitehost -->
+<loc>sitehost</loc> 
+<lastmod>2021-12-14T20:14:20+00+00</lastmod>
+</url>
+<url>
+<loc>sitehost/about</loc> 
+<lastmod>2021-12-14T20:14:20+00+00</lastmod>
+</url>
+<url>
+<loc>sitehost/blog</loc> 
+<lastmod>2021-12-14T20:14:20+00+00</lastmod>
+</url>
+
+
+</urlset>

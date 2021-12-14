@@ -19,6 +19,23 @@ export default {
     newComment,
     comments,
   },
+   head() {
+    //для смены title страниц и  descr. og - это для seo
+    let title = this.post.title, //это сама стр так будет называться сверху
+      descr = this.post.descr, //это то, что будет видно поисковаикам в описании
+      img = this.post.img, //site.com/${this.post.img} вот так надо писать по хорошему
+      type = "article"; //для того чтобы поисковая система ранжировала как сайт наше приложение
+    return {
+      title: title,
+      meta: [
+        { hid: "og:title", name: "og:title", content: title },
+        { hid: "description", name: "description", content: descr },
+        { hid: "og:description", name: "og:description", content: descr },
+        { hid: "og:type", name: "og:type", content: type },
+        { hid: "og:img", name: "og:img", content: img }
+      ],
+    };
+  },
   async asyncData(context) {
     // здесь создаем 2 промиса, один для поста, один для комментарием на стр. блока
     let [post, comments] = await Promise.all([

@@ -1,23 +1,25 @@
 <template>
-  <div class="wrapper">
-    <!-- подключаем компонент  Header-->
-    <Header />
-    <!-- content -->
-    <div class="wrapper-content wrapper-content--fixed">
-      <Intro title="Admin Page" class="intro">
-        <nuxt-link class="link linkWhite" to="/admin"> Admin </nuxt-link>
-        <nuxt-link class="link linkWhite" to="/admin/new-post">
-          New Post
-        </nuxt-link>
-        <nuxt-link class="link linkWhite" to="/admin/comments">
-          Comments
-        </nuxt-link>
-        <span @click="logoutUser" class="link linkWhite"> Logout </span>
-      </Intro>
-      <!-- подключаем роуты -->
-      <nuxt />
+  <no-ssr>
+    <div class="wrapper">
+      <!-- подключаем компонент  Header-->
+      <Header />
+      <!-- content -->
+      <div class="wrapper-content wrapper-content--fixed">
+        <Intro title="Admin Page" class="intro">
+          <nuxt-link class="link linkWhite" to="/admin"> Admin </nuxt-link>
+          <nuxt-link class="link linkWhite" to="/admin/new-post">
+            New Post
+          </nuxt-link>
+          <nuxt-link class="link linkWhite" to="/admin/comments">
+            Comments
+          </nuxt-link>
+          <span @click="logoutUser" class="link linkWhite"> Logout </span>
+        </Intro>
+        <!-- подключаем роуты -->
+        <nuxt />
+      </div>
     </div>
-  </div>
+  </no-ssr>
 </template>
 
 <script>
@@ -30,10 +32,9 @@ export default {
   methods: {
     //логаут пользователя
     logoutUser() {
-      this.$store.dispatch("logoutUser")
-        .then(() => {
-          this.$router.push('./admin/auth')
-      })
+      this.$store.dispatch("logoutUser").then(() => {
+        this.$router.push("./admin/auth");
+      });
     },
   },
 };
