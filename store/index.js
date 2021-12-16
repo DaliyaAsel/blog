@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Cookie from 'js-cookie'
 
 export const state = () => ({
   postsLoaded: [],
@@ -58,16 +59,39 @@ export const actions = {
       returnSecureToken: true  //защищаем пользователя
     })
     .then((res) => {
-      commit('setToken', res.data.idToken)
+      let token = res.data.idToken
+      commit('setToken', token)
+      // для локального хранилища
+      localStorage.setItem('token', token)
+      // для cookie
+      Cookie.set('jwt', token)
     })
     .catch(err => {
       console.log(err)
     })
   }, 
 
+  // проверка на наличие в локальном хранилище ключа токена и наличие в нем знаяения token. -> в middleware в фауле authLocalStorage-check.js 
+  initAuth({commit}, req) {  // request  прописываем в качестве аргумента еще в файле authLocalStorage-check
+    let token
+    if (req) { // если сервер есть исп это условие
+      if(!req.headers.cookie) return false // есть ли в заголовках куков нет
+      const jwtCookie = req.headers.cookie.split(';').find(t => t.trim().startsWith('jwt=')) // если куки есть, jwt= -это стандарт написания токена
+      if(!jwtCookie) return false  // проверяем, есть ли эта константа или нет
+      token = jwtCookie.split('=')[1]  //если есть, то приравниваем текущий токен, к jwtCookie и возьмем первый элемент
+    }
+    else { // если нет сервера, то локальное хранилище
+     token = localStorage.getItem('token')
+     if(!token) return false  // если пользователь не залогинен и соответственно у него нет токена 
+  }
+    commit('setToken', token) //если токен имеется, то в мутацию передаем токен 
+  },
+
   // логаут
   logoutUser({commit}) {
     commit('destroyToken') //вызываем мутацию destroyToken
+    localStorage.removeItem('token') // чтобы токен и из локального хранилища удалился
+    Cookie.remove('jwt') // удаляем куки, чтобы логацт работал
   },
 
  async addPost({ commit }, post) { //на Pages -> admin -> new-post его вызываем

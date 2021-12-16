@@ -28,7 +28,7 @@ export default {
   components: {
     Header,
   },
-  middleware: ["auth"], //для проверки регистрации админа
+  middleware: ["authLocalStorage-check","auth"], // auth - для проверки регистрации админаи, authLocalStorage-check - для проверки токена в локальном хранилище
   methods: {
     //логаут пользователя
     logoutUser() {
